@@ -11,14 +11,14 @@
     <main>
       <div class="calculator-body">
         <div class="display-container">
-          <div class="raw-display"><span></span></div>
-          <div class="display"><span>0</span></div>
+          <div class="raw-display" id="calculation-display"><span></span></div>
+          <div class="display" id="number-display"><span></span></div>
         </div>
         <div class="operator-container">
-          <button class="operator">CE</button>
-          <button class="operator">C</button>
-          <button class="operator">-</button>
-          <button class="operator">
+          <button id="clear-all">C</button>
+          <button id="clear-entry">CE</button>
+          <button id="minus" class="operators">-</button>
+          <button id="backspace">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -53,25 +53,25 @@
               </g>
             </svg>
           </button>
-          <button class="operator">7</button>
-          <button class="operator">8</button>
-          <button class="operator">9</button>
-          <button class="operator">/</button>
-          <button class="operator">4</button>
-          <button class="operator">5</button>
-          <button class="operator">6</button>
-          <button class="operator">*</button>
-          <button class="operator">1</button>
-          <button class="operator">2</button>
-          <button class="operator">3</button>
-          <button class="operator">+</button>
-          <button class="operator">%</button>
-          <button class="operator">0</button>
-          <button class="operator">.</button>
-          <button class="operator" id="equal-sign">=</button>
+          <button class="numbers">8</button>
+          <button class="numbers">7</button>
+          <button class="numbers">9</button>
+          <button id="divide" class="operators">/</button>
+          <button class="numbers">4</button>
+          <button class="numbers">5</button>
+          <button class="numbers">6</button>
+          <button id="multiply" class="operators">*</button>
+          <button class="numbers">1</button>
+          <button class="numbers">2</button>
+          <button class="numbers">3</button>
+          <button id="plus " class="operators">+</button>
+          <button id="modulus" class="operators">%</button>
+          <button class="numbers">0</button>
+          <button id="decimal" class="numbers">.</button>
+          <button id="equal" class="operators">=</button>
         </div>
       </div>
     </main>
-    <!-- <script src="./script.js"></script> -->
+    <script src="./script.js"></script>
   </body>
 </html>
