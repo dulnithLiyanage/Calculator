@@ -24,6 +24,7 @@ button {
 
 button:hover {
   opacity: 80%;
+  cursor: pointer;
 }
 
 .calculator-body {
@@ -56,6 +57,6 @@ button:hover {
   padding-right: 1vh;
 }
 
-#equal-sign {
+#equal {
   background-color: #ec5151;
 }
