@@ -14,7 +14,7 @@ button {
   color: white;
   border: none;
   border-radius: 8px;
-  font-size: 20px;
+  font-size: 22px;
   font-family: "Poppins", sans-serif;
   display: flex;
   align-items: center;
@@ -59,4 +59,8 @@ button:hover {
 
 #equal {
   background-color: #ec5151;
+}
+
+#backspace > img {
+  width: 28px;
 }
