@@ -7,14 +7,14 @@ body {
 }
 
 img {
-  width: 20px;
+  width: 26px;
 }
 button {
   background-color: #4a4949;
   color: white;
   border: none;
   border-radius: 8px;
-  font-size: 22px;
+  font-size: 20px;
   font-family: "Poppins", sans-serif;
   display: flex;
   align-items: center;
@@ -41,7 +41,7 @@ button:hover {
   margin: 0 1vh;
 }
 
-.raw-display {
+#calculation-display {
   height: 10vh;
   display: flex;
   align-items: flex-end;
@@ -50,7 +50,7 @@ button:hover {
   font-size: 20px;
 }
 
-.display {
+#number-display {
   height: 20vh;
   font-size: 82px;
   text-align: right;
@@ -59,8 +59,4 @@ button:hover {
 
 #equal {
   background-color: #ec5151;
-}
-
-#backspace > img {
-  width: 28px;
 }
