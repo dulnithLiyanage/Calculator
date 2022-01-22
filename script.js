@@ -1,60 +1,131 @@
-// ** Variables --------------------------------------------------------------------------------------------------------------------
+// ! Calculator Class -----------------------------------------------------------------------------------------------------------
 
-const calculationDisplay = document.querySelector("#calculation-display");
-const numberDisplay = document.querySelector("#number-display");
-const clearEntry = document.querySelector("#clear-entry");
-const clearAll = document.querySelector("#clear-all");
-const equalSign = document.querySelector("#equal");
-const backspace = document.querySelector("#backspace");
-const numbers = document.querySelectorAll(".numbers");
-const operators = document.querySelectorAll(".operators");
-
-numbers.forEach((number) => {
-  number.addEventListener("click", function () {
-    numberDisplay.textContent += number.textContent;
-  });
-});
-
-operators.forEach((operator) => {
-  operator.addEventListener("click", function () {
-    while (numberDisplay.textContent != "") {
-      let num = parseFloat(numberDisplay.textContent);
-      if (operator.textContent != "=") {
-        calculationDisplay.textContent += `${num} ${operator.textContent} `;
-      } else {
-        calculationDisplay.textContent += `${num} `;
-      }
-      numberDisplay.textContent = "";
-    }
-  });
-});
-
-equalSign.addEventListener("click", function () {
-  let answer = 0;
-  if (isFloat(answer) === true) {
-    answer = eval(calculationDisplay.textContent);
-  } else {
-    answer = eval(calculationDisplay.textContent);
+class Calculator {
+  constructor(previousTextElement, currentTextElement) {
+    this.previousTextElement = previousTextElement;
+    this.currentTextElement = currentTextElement;
+    this.clearAll();
   }
-  calculationDisplay.textContent = "";
-  numberDisplay.textContent = answer;
-});
 
-clearAll.addEventListener("click", function () {
-  calculationDisplay.textContent = "";
-  numberDisplay.textContent = "";
-});
+  clearAll() {
+    this.previousTextElement.textContent = "";
+    this.currentNumber = "";
+    this.operation = undefined;
+  }
 
-clearEntry.addEventListener("click", function () {
-  numberDisplay.textContent = "";
-});
+  clearEntry() {
+    this.currentNumber = "";
+  }
 
-backspace.addEventListener("click", function () {
-  let numbers = numberDisplay.textContent.split("");
-  numbers.pop(numbers[numbers.length - 1]);
-  numberDisplay.textContent = numbers.join("");
-});
+  backspace() {
+    this.currentNumber = this.currentNumber.toString().slice(0, -1);
+  }
 
-function isFloat(n) {
-  return Number(n) === n && n % 1 !== 0;
+  choseOperation(operation) {
+    if (this.currentNumber === "") return;
+    if (this.previousNumber != "") {
+      this.calculate();
+    }
+    this.operation = operation;
+    this.previousNumber = this.currentNumber;
+    this.currentNumber = "";
+  }
+
+  appendNumber(number) {
+    if (number === "." && this.currentNumber.includes(".")) return;
+    this.currentNumber = this.currentNumber.toString() + number.toString();
+  }
+
+  calculate() {
+    let computation;
+    let previousNumber = parseFloat(this.previousNumber);
+    let currentNumber = parseFloat(this.currentNumber);
+
+    if (isNaN(previousNumber) || isNaN(currentNumber)) return;
+
+    switch (this.operation) {
+      case "+":
+        computation = previousNumber + currentNumber;
+        break;
+      case "-":
+        computation = previousNumber - currentNumber;
+        break;
+      case "/":
+        computation = previousNumber / currentNumber;
+        break;
+      case "*":
+        computation = previousNumber * currentNumber;
+        break;
+      case "%":
+        computation = previousNumber % currentNumber;
+        break;
+      default:
+        return;
+    }
+
+    this.currentNumber = computation;
+    this.previousTextElement.textContent = "";
+    this.operation = undefined;
+  }
+
+  updateDisplay() {
+    this.currentTextElement.textContent = this.currentNumber;
+    if (this.operation != null) {
+      this.previousTextElement.textContent = `${this.previousNumber} ${this.operation}`;
+    }
+  }
 }
+
+// ! ----------------------------------------------------------------------------------------------------------------------------
+// ** Variables -----------------------------------------------------------------------------------------------------------------
+
+const previousTextElement = document.querySelector("#calculation-display");
+const currentTextElement = document.querySelector("#number-display");
+const clearEntry = document.querySelector("[data-clear-entry]");
+const clearAll = document.querySelector("[data-clear-all]");
+const equalSign = document.querySelector("[data-equal-sign]");
+const backspace = document.querySelector("[data-backspace]");
+const numbers = document.querySelectorAll("[data-numbers]");
+const operation = document.querySelectorAll("[data-operation]");
+
+// ** ---------------------------------------------------------------------------------------------------------------------------
+
+const CALCULATOR = new Calculator(previousTextElement, currentTextElement);
+
+// ? Event Listeners ------------------------------------------------------------------------------------------------------------
+
+numbers.forEach((button) => {
+  button.addEventListener("click", () => {
+    CALCULATOR.appendNumber(button.textContent);
+    CALCULATOR.updateDisplay();
+  });
+});
+
+operation.forEach((operator) => {
+  operator.addEventListener("click", () => {
+    CALCULATOR.choseOperation(operator.textContent);
+    CALCULATOR.updateDisplay();
+  });
+});
+
+clearAll.addEventListener("click", () => {
+  CALCULATOR.clearAll();
+  CALCULATOR.updateDisplay();
+});
+
+clearEntry.addEventListener("click", () => {
+  CALCULATOR.clearEntry();
+  CALCULATOR.updateDisplay();
+});
+
+backspace.addEventListener("click", () => {
+  CALCULATOR.backspace();
+  CALCULATOR.updateDisplay();
+});
+
+equalSign.addEventListener("click", () => {
+  CALCULATOR.calculate();
+  CALCULATOR.updateDisplay();
+});
+
+// ? ----------------------------------------------------------------------------------------------------------------------------
